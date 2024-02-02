@@ -1,6 +1,8 @@
 # Terraform - Gitlab pipeline
 This project helps to create an IaC Terraform AWS pipeline in a (self-managed) Gitlab.  
-Peculiarities of the solution are:
+My project is derived by [another existing project](https://gitlab.com/gitlab-org/configure/examples/empower-iac-with-gitlab-and-terraform/02-multiple-environments). The author is [Timo Furrer](https://gitlab.com/timofurrer).
+
+Peculiarities of my solution are:
 - 3 different AWS cloud environments (development, staging and production);
 - each env is created in a different AWS account (I don't want to mix envs in a single account);
 - each AWS account credentials are stored in different gitlab pipeline variables;
