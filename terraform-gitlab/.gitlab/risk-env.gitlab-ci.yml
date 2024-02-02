@@ -1,0 +1,35 @@
+include:
+  template: Terraform.latest.gitlab-ci.yml
+
+build:
+  environment:
+    name: $TF_STATE_NAME
+    action: prepare
+  rules:
+    - if: $TF_DESTROY == "true"
+      variables:
+        TF_CLI_ARGS_plan: "-destroy $TF_CLI_ARGS_plan"
+    - when: on_success
+
+deploy:
+  environment: 
+    name: $TF_STATE_NAME
+    action: start
+    on_stop: destroy
+  rules:
+    - if: $TF_DESTROY == "true"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $TF_AUTO_DEPLOY == "true"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+
+destroy:
+  extends: .terraform:destroy
+  dependencies:
+    - build
+  environment:
+    name: $TF_STATE_NAME
+    action: stop
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $TF_DESTROY_STAGE == "true"
+      when: manual

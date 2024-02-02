@@ -1,0 +1,47 @@
+stages:
+  - environments
+
+.environment:
+  stage: environments
+  variables:
+    TF_ROOT: $environment
+    TF_STATE_NAME: $environment
+    TF_CLI_ARGS_plan: "-var-file=../vars/$environment.tfvars"
+  trigger:
+    include: .gitlab/iac-env.gitlab-ci.yml
+    strategy: depend 
+    forward:
+      yaml_variables: true
+      pipeline_variables: true
+
+development:
+  extends: .environment
+  variables:
+    environment: development
+    TF_DESTROY_STAGE: "true"
+    TF_AUTO_DEPLOY: "false"
+    TF_VAR_aws_access_key: ${AWS_ACCESS_KEY_ID_DEVELOPMENT}
+    TF_VAR_aws_secret_key: ${AWS_SECRET_ACCESS_KEY_DEVELOPMENT}
+    TF_VAR_aws_region_id_staging: ${AWS_REGION_ID_DEVELOPMENT}
+
+staging:
+  extends: .environment
+  variables:
+    environment: staging
+    TF_DESTROY_STAGE: "true"
+    TF_AUTO_DEPLOY: "false"
+    TF_VAR_aws_access_key: ${AWS_ACCESS_KEY_ID_STAGING}
+    TF_VAR_aws_secret_key: ${AWS_SECRET_ACCESS_KEY_STAGING}
+    TF_VAR_aws_region_id_staging: ${AWS_REGION_ID_STAGING}
+
+production:
+  extends: .environment
+  variables:
+    environment: production
+    TF_DESTROY_STAGE: "true"
+    TF_AUTO_DEPLOY: "false"
+    TF_VAR_aws_access_key: ${AWS_ACCESS_KEY_ID_PRODUCTION}
+    TF_VAR_aws_secret_key: ${AWS_SECRET_ACCESS_KEY_PRODUCTION}
+    TF_VAR_aws_region_id_staging: ${AWS_REGION_ID_PRODUCTION}
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
