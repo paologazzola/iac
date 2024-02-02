@@ -16,15 +16,15 @@ This module creates a new VPC with subnets.
 
 ## Gitlab variables
 Gitlab CI/CD pipeline variables (all masked):
-- AWS_ACCESS_KEY_ID_DEVELOPMENT: development account access key
-- AWS_SECRET_ACCESS_KEY_DEVELOPMENT: development account secret access key
-- AWS_REGION_ID_DEVELOPMENT: development env region id (es: eu-south-1)
-- AWS_ACCESS_KEY_ID_STAGING: staging account access key
-- AWS_SECRET_ACCESS_KEY_STAGING: staging account secret access key
-- AWS_REGION_ID_STAGING: staging env region id (es: eu-south-1)
-- AWS_ACCESS_KEY_ID_PRODUCTION: production account access key
-- AWS_SECRET_ACCESS_KEY_PRODUCTION: production account secret access key
-- AWS_REGION_ID_PRODUCTION: production env region id (es: eu-south-1)
+- `AWS_ACCESS_KEY_ID_DEVELOPMENT`: development account access key
+- `AWS_SECRET_ACCESS_KEY_DEVELOPMENT`: development account secret access key
+- `AWS_REGION_ID_DEVELOPMENT`: development env region id (es: eu-south-1)
+- `AWS_ACCESS_KEY_ID_STAGING`: staging account access key
+- `AWS_SECRET_ACCESS_KEY_STAGING`: staging account secret access key
+- `AWS_REGION_ID_STAGING`: staging env region id (es: eu-south-1)
+- `AWS_ACCESS_KEY_ID_PRODUCTION`: production account access key
+- `AWS_SECRET_ACCESS_KEY_PRODUCTION`: production account secret access key
+- `AWS_REGION_ID_PRODUCTION`: production env region id (es: eu-south-1)
 
 ### Multi environments
 The IaC project uses the _File Structure Approach_ for managing the three different environments. If you don't known what is, watch this video: https://www.youtube.com/watch?v=7xngnjfIlK4&t=5766s
